@@ -4,7 +4,7 @@ import sys
 import basic_operations
 import os
 import numpy as np
-from matplotlib import pyplot as plt
+
 
 
 def main():
@@ -30,12 +30,12 @@ def main():
 
 #---------------------------------------------------------------------------------------------------
     #show original
-    original = basic_operations.load_image('cells.png')
+    original = basic_operations.load_image('cells_test.png')
     cv.imshow("original", original)
     #cv.waitKey(0)
 
     #color2gray
-    gray =  basic_operations.convert_bgr_to_gray('cells.png')
+    gray =  basic_operations.convert_bgr_to_gray('cells_test.png')
     cv.imshow("gray",gray)
     #cv.waitKey(0)
 
@@ -46,9 +46,12 @@ def main():
     print(blur)
     print('huj')
 
-    otsu = basic_operations.otsu_tresholding(blur)
-    cv.imshow("otsu", otsu)
+    otsu_fail = basic_operations.otsu_tresholding(blur)
+    cv.imshow("otsu_fail", otsu_fail)
     #cv.waitKey(0)
+
+    otsu = basic_operations.otsu(blur)
+    cv.imshow("otsu", otsu)
 
     #sobel_edges
     sobel = basic_operations.sobel_edge(otsu)
@@ -56,7 +59,7 @@ def main():
     # edges
     edges = cv.Canny(otsu,180,200)
     cv.imshow("canny", edges)
-
+    #cv.waitKey(0)
     cir = basic_operations.circles_detect(original,otsu)
     #cv.imshow("cir", cir)
     #cv.waitKey(0)

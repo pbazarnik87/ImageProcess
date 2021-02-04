@@ -106,8 +106,8 @@ def convert_bgr_to_gray(img_src_path):
 
 def circles_detect(src,img):
 
-    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 15,
-                              param1=15, param2=8, minRadius=0, maxRadius=20)
+    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 40,
+                              param1=10, param2=13, minRadius=5, maxRadius=100)
     circles = np.uint16(np.around(circles))
     circles_counter=0
     for i in circles[0, :]:
@@ -139,9 +139,16 @@ def sobel_edge(img):
 
     return  dst2
 
+def otsu(img):
+    img = np.array(img)
+    otsu = cv.threshold(img,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
+    print(otsu)
+
+    return otsu[1]
 
 
 def otsu_tresholding(img):
+
     hist = cv.calcHist([img], [0], None, [256], [0, 256])
 
     list = np.array(hist)
