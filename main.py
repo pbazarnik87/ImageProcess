@@ -30,12 +30,12 @@ def main():
 
 #---------------------------------------------------------------------------------------------------
     #show original
-    original = basic_operations.load_image('cells_test.png')
+    original = basic_operations.load_image('pic\cells_test.png')
     cv.imshow("original", original)
     #cv.waitKey(0)
 
     #color2gray
-    gray =  basic_operations.convert_bgr_to_gray('cells_test.png')
+    gray =  basic_operations.convert_bgr_to_gray('pic\cells_test.png')
     cv.imshow("gray",gray)
     #cv.waitKey(0)
 
