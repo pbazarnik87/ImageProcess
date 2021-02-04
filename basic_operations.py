@@ -21,7 +21,10 @@ class WrongFilePath(ValueError):
     pass
 
 def show_image(img_src_path):
+    '''
+    test description
 
+    '''
     img = load_image(img_src_path)
 
     if img is None:
