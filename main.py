@@ -56,7 +56,7 @@ def main():
         otsu_img = otsu[1]
         edges = cv.Canny(otsu_img, 0, 200)
         cir = basic_operations.circles_detect(frame, edges)
-
+#
         cv.imshow('frame', cir)
         if cv.waitKey(1) == ord('q'):
             break
