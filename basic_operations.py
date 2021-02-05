@@ -109,19 +109,22 @@ def convert_bgr_to_gray(img_src_path):
 
 def circles_detect(src,img):
 
-    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 40,
-                              param1=10, param2=13, minRadius=5, maxRadius=100)
-    circles = np.uint16(np.around(circles))
+    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 15,
+                              param1=50, param2=10, minRadius=12, maxRadius=18)
+    print(circles)
     circles_counter=0
-    for i in circles[0, :]:
-        # draw the outer circle
-        cv.circle(src, (i[0], i[1]), i[2], (0, 255, 0), 2)
-        # draw the center of the circle
-        cv.circle(src, (i[0], i[1]), 2, (0, 0, 255), 3)
-        circles_counter+=1
+
+    if np.all(circles) != None:
+        circles = np.uint16(np.around(circles))
+
+        for i in circles[0, :]:
+            # draw the outer circle
+            cv.circle(src, (i[0], i[1]), i[2], (0, 255, 0), 2)
+            # draw the center of the circle
+            cv.circle(src, (i[0], i[1]), 2, (0, 0, 255), 3)
+            circles_counter+=1
     print('circles= '+ str(circles_counter))
-    cv.imshow('detected circles', src)
-    cv.waitKey(0)
+    return src
 
 
 
@@ -133,21 +136,21 @@ def sobel_edge(img):
                        [-2, 0, 2],
                        [-1, 0, 1]], np.float32)  # kernel should be floating point type
 
-    kernel2 = np.array([[1, 2, 1],
-                        [0, 0, 0],
-                        [-1, -2, -1]], np.float32)  # kernel should be floating point type
+    kernel2 = np.array([[1, 0, -1],
+                        [2, 0, -2],
+                        [1, 0, -1]], np.float32)  # kernel should be floating point type
     dst1 = cv.filter2D(img, -1, kernel1)
-    dst2 = cv.filter2D(dst1, -1, kernel2)
+    dst2 = cv.filter2D(img, -1, kernel2)
+    dst3 = np.add(dst1,dst2)
 
 
-    return  dst2
+    return  dst3
 
 def otsu(img):
     img = np.array(img)
     otsu = cv.threshold(img,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
-    print(otsu)
 
-    return otsu[1]
+    return otsu
 
 
 def otsu_tresholding(img):
