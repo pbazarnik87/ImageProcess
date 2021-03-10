@@ -7,7 +7,7 @@ import basic_operations
 class BasicOperationsTestCase(unittest.TestCase):
 
 
-#load_image
+#img
     def test_check_if_load_image_is_loaded(self):
         res = basic_operations.load_image(r'tests\foto.png')
         img = cv.imread(r'tests\foto.png')
@@ -52,6 +52,6 @@ class BasicOperationsTestCase(unittest.TestCase):
 
     def test_copy_image_correct_deest_src_path(self):
         src = r'tests\foto.png'
-        dest = r'D:\PycharmProjects\ImageProcess\tests\foto_copy.png'
+        dest = r'tests\foto_copy.png'
 
         self.assertEquals(basic_operations.copy_image(src, dest),True)
